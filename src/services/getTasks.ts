@@ -16,3 +16,11 @@ export const createTask = async (task: Task) => {
 export const updateTask = async (ID:string, task: TaskUpdateBody) => {
     return await axios.put(`http://localhost:4000/tasks/${ID}`, task)
 }
+
+export const deleteTask = async (ID:string) => {
+    return await axios.delete(`http://localhost:4000/tasks/${ID}`)
+}
+
+export const deleteAllTasks = async () => {
+    return await axios.delete(`http://localhost:4000/tasks`)
+}

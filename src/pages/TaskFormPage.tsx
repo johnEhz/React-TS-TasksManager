@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Task } from '../../types';
 import { createTask } from '../services/getTasks';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getTaskByID, updateTask } from '../services/getTasks';
 
 const INITIAL_VALUES = {
@@ -10,24 +10,21 @@ const INITIAL_VALUES = {
     important: false,
     status: false
 }
- 
+
 const TaskForm = ()  => {
 
   const params = useParams();
-  const [task, setTask] = useState<Task>(INITIAL_VALUES)
-
-  const loadTask = async () => {
-    if (params.id){
-      console.log(params.id)
-      await getTaskByID(params.id)
-      .then(res => {console.log(res.data)
-                    setTask(res.data)})
-  }
-}
+  const [task, setTask] = useState<Task>(INITIAL_VALUES);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadTask()
-  }, [])
+    (async () => {
+      if (params.id){
+        await getTaskByID(params.id)
+        .then(res => {setTask(res.data)})
+      } else setTask(INITIAL_VALUES)
+    })()
+  }, [params.id])
   
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,18 +43,17 @@ const TaskForm = ()  => {
     e.preventDefault();
     try {
       if (params.id){
-        console.log(task)
         await updateTask(params.id, {name: task.name,
                           description: task.description,
                           important: task.important,
-                          status: task.status}).then(res => console.log(res.data))
+                          status: task.status})
         alert(`Task with ID ${params.id} Updated!`)
       }
       else{
-        await createTask(task).then(res => console.log(res.data))
+        await createTask(task)
         alert('Tarea creada y añadida con éxito!')
-        setTask(INITIAL_VALUES)
       }
+      navigate('/tasks')
     } catch (error) {
       alert(error)
     }
@@ -66,7 +62,10 @@ const TaskForm = ()  => {
   return (
     <>
     {
-      params.id ? <h3>Update Task Form</h3> : <h3>Create Task Form</h3>
+      params.id ? (<>
+                    <h3 className='card-title'>Update Task Form</h3>
+                    <small className="text-muted">{params.id}</small>
+                  </>): (<h3>Create Task Form</h3>)
     }
       <form onSubmit={handleSubmit}>
         <div className="form-group">
