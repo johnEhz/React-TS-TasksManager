@@ -1,0 +1,36 @@
+.taskList-section {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+
+.taskList-head {
+    color: rgb(209, 209, 209);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.taskList-head button {
+    cursor: pointer;
+    border: none;
+    color: rgb(209, 209, 209);
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+    width: 170px;
+    height: 40px;
+    transition: all 1s ease;
+}
+
+.taskList-head button:hover {
+    transform: scale(1.1)
+}
+
+.card-group {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

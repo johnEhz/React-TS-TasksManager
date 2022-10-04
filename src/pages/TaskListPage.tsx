@@ -1,41 +1,45 @@
-import React, {useEffect, useState } from 'react'
-import { Task } from '../../types'
-import TaskC from '../components/Task'
-import { getTasks, deleteAllTasks } from '../services/getTasks';
+import React, { useEffect, useState } from "react";
+import { Task } from "../../types";
+import TaskC from "../components/Task/Task";
+import { getTasks, deleteAllTasks } from "../services/getTasks";
+import "../styles/taskList.css";
+import toast, { Toaster } from "react-hot-toast";
 
+const TaskList = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-const TaskList = ()  => {
-
-  const [tasks, setTasks] = useState<Task[]>([])
-
-  const loadTasks = async() => {
-    await getTasks().then(res => setTasks(res.data))
-  }
+  const loadTasks = async () => {
+    const toastLoad = toast.loading("Requesting Tasks..");
+    await getTasks().then((res) => setTasks(res.data));
+    toast.dismiss(toastLoad);
+  };
 
   useEffect(() => {
     loadTasks();
-  }, [])
+  }, []);
 
   const handleDeleteAllTask = async () => {
-    await deleteAllTasks()
+    await deleteAllTasks();
     loadTasks();
-    alert('Tareas Eliminadas!')
-  }
+  };
 
   return (
-    <>
-    <button className='btn btn-danger' onClick={handleDeleteAllTask}>Eliminar Todas</button>
+    <section className="taskList-section">
+      <Toaster />
+      <div className="taskList-head">
+        <button className="btn" onClick={handleDeleteAllTask}>
+          Eliminar Todas
+        </button>
+        <h2>Tasks: {tasks.length}</h2>
+      </div>
       <div className="card-group">
         {tasks.length > 0 ?
-          (
-              tasks.map(task => (
-                <TaskC key={task._id} task={task} loadTasks={loadTasks}/>
-              ))
-          ) : (<h5>No hay tareas disponibles</h5>)
-        }
+        tasks.map((task) => (
+          <TaskC key={task._id} task={task} loadTasks={loadTasks} />
+        )) : (<h1>No hay tareas registradas</h1>)}
       </div>
-    </>
-  )
-}
+    </section>
+  );
+};
 
 export default TaskList;

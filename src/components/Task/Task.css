@@ -1,0 +1,87 @@
+.task-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto;
+    transition: 1s all ease;
+    border: 1px transparent solid;
+    cursor: pointer;
+}
+
+.task-card:hover {
+    transform: scale(1.04);
+    border: 1.2px rgb(92, 92, 92) solid;
+}
+
+.card-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-size: large;
+    color: rgb(171, 171, 171);
+    padding: 10px;
+    background-color: rgb(34, 34, 34);
+}
+
+.card-body {
+    color: rgb(171, 171, 171);
+    background-color: rgb(24 24 27);
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 10px;
+}
+
+.card-body p {
+    word-wrap: break-word;
+    justify-content: right;
+}
+
+
+.card-status {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card-actions button {
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(171, 171, 171);
+    border: none;
+    width: 30%;
+    height: 30px;
+    background-color: rgb(34, 34, 34);
+    transition: 1s all ease;
+}
+
+.card-actions button:hover {
+    background-color: rgb(45, 45, 45);
+    transform: scale(1.2);
+}
+
+.card-footer {
+    height: 30px;
+    align-items: center;
+    font-size: small;
+    color: rgb(171, 171, 171);
+    padding: 10px;
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}

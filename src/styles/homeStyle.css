@@ -1,0 +1,20 @@
+.homeSection {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: rgb(209, 209, 209);
+    text-align: center;
+    justify-content: center;
+    gap: 12px;
+    font-style: italic;
+}
+
+.homeSection h1 {
+    padding-top: 30px;
+    font-size: 30px;
+}
+
+.homeSection p {
+    margin: 0 auto;
+    max-width: 350px;
+}
